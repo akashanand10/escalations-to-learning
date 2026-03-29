@@ -1,0 +1,1 @@
+/Users/aanand/.agents/skills/atlassian-cli/jira-ticket-analysis.instructions.md
