@@ -6,7 +6,7 @@ description: "Use when: producing a quarterly summary of engineering escalations
 
 ## Purpose
 
-Summarise monthly escalation analysis docs (e.g. `bp-engineering-escalations-<month>-<year>-analysis.md`) into a single quarterly report. The goal is to surface **hotspots** — product areas with recurring or high-volume escalations — and track trends across the quarter.
+Summarise monthly escalation analysis docs (e.g. `analysis/bp-engineering-escalations-<month>-<year>-analysis.md`) into a single quarterly report. The goal is to surface **hotspots** — product areas with recurring or high-volume escalations — and track trends across the quarter.
 
 ## Input
 
@@ -23,9 +23,9 @@ Monthly analysis markdown files for each month in the quarter. Each file follows
 
 Identify all monthly analysis files for the target quarter. For example, Q1 2026:
 
-- `bp-engineering-escalations-january-2026-analysis.md`
-- `bp-engineering-escalations-february-2026-analysis.md`
-- `bp-engineering-escalations-march-2026-analysis.md`
+- `analysis/bp-engineering-escalations-january-2026-analysis.md`
+- `analysis/bp-engineering-escalations-february-2026-analysis.md`
+- `analysis/bp-engineering-escalations-march-2026-analysis.md`
 
 ### Step 2: Classify each ticket by product area
 
@@ -47,7 +47,7 @@ Read every ticket in each monthly file. Assign a product area based on the issue
 
 ### Step 3: Build the quarterly summary
 
-Produce a markdown file named `bp-engineering-escalations-Q<N>-<year>-analysis.md` with the following structure:
+Produce a markdown file named `analysis/bp-engineering-escalations-Q<N>-<year>-analysis.md` with the following structure:
 
 ```markdown
 # <Project> Engineering Escalations — Quarterly Report (Q<N> <Year>)
