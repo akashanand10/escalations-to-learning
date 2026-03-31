@@ -22,6 +22,8 @@ Product Area: Bills (Drafts)
 
 Priority: Medium | Status: Selected for Development (migrated) | Owner: Abhishek Kumar
 
+Issue Summary: Users unable to delete draft bills. Under investigation — root cause not yet identified.
+
 Updates:
 
 - ticket created by Connector for Salesforce & Jira on 2026-03-27
@@ -38,6 +40,8 @@ Customer/Account: Wayside Publishing (Prod)
 Product Area: Payments
 
 Priority: Medium | Status: Backlog | Owner: Von Miguel Medeza
+
+Issue Summary: Card payment declined for exceeding a limit. Needs triage to determine whether the cap is card-level or platform-level.
 
 Updates:
 
@@ -56,6 +60,8 @@ Product Area: Bills (Approval)
 
 Priority: Medium | Status: Selected for Development (migrated) | Owner: Manishwar Segu
 
+Issue Summary: Bills approval UI intermittently displays incorrect PO match data. Under investigation.
+
 Updates:
 
 - ticket created by Connector for Salesforce & Jira on 2026-03-26
@@ -73,6 +79,8 @@ Product Area: Inbox
 
 Priority: Medium | Status: In Review | Owner: Asif Rawloo
 
+Issue Summary: Vendor emails continue arriving in the inbox after the vendor was offboarded. Suppression logic appears to be missing or not triggered.
+
 Updates:
 
 - ticket created by Connector for Salesforce & Jira on 2026-03-26
@@ -89,6 +97,8 @@ Customer/Account: Wild Alaskan (Prod)
 Product Area: Inbox (Scanning)
 
 Priority: Medium | Status: In Review | Owner: Asif Rawloo
+
+Issue Summary: Large multi-page PDFs (24 pages) cause OCR timeout in Veryfi, resulting in invoices not being scanned. Veryfi treats timed-out files as attachments. Awaiting Veryfi response; fallback for header-level extraction being considered.
 
 Updates:
 
@@ -109,6 +119,8 @@ Product Area: Bills (Create/Edit)
 
 Priority: Medium | Status: In Progress | Owner: Vishwajeet Singh
 
+Issue Summary: No duplicate invoice number warning is shown when editing a pending bill, unlike the create flow. Duplicate validation needs to be added to the edit path.
+
 Updates:
 
 - ticket created by Connector for Salesforce & Jira on 2026-03-25
@@ -125,6 +137,8 @@ Customer/Account: Productboard Inc. (Prod)
 Product Area: Payments (POA/Notifications)
 
 Priority: Medium | Status: Done | Owner: Karan Suthar
+
+Issue Summary: Bills marked as Paid Outside Airbase (POA) were still triggering payment reminder emails. Root cause: missing condition in the reminder-send logic — a previously unmarked vendor-payment caused the system to treat the bill as unpaid. Fix deployed.
 
 Updates:
 
@@ -145,6 +159,8 @@ Product Area: Inbox (Upload) / Infrastructure
 
 Priority: High | Status: Done | Owner: Asif Rawloo
 
+Issue Summary: Emails with invoices were not appearing in the inbox. Root cause: R15 memory quota exceeded on the platform triggered a backup in the task queue, causing delayed processing for several hours. Workers self-recovered.
+
 Updates:
 
 - ticket created by Connector for Salesforce & Jira on 2026-03-23
@@ -161,6 +177,8 @@ Customer/Account: GHC (Prod)
 Product Area: Bills (Edit)
 
 Priority: High | Status: Done | Owner: Sagar Parthasarathy
+
+Issue Summary: Saving changes to a pending bill failed because the subsidiary V2 API returned null for `gl_currency` on the customer's subsidiary. Code fallback deployed to use `bill.gl_currency` instead. Underlying data issue flagged for accounting team.
 
 Updates:
 
@@ -183,6 +201,8 @@ Product Area: Bills (Create/Edit) / Infrastructure
 
 Priority: Medium | Status: Done | Owner: Sagar Parthasarathy
 
+Issue Summary: Cloudflare WAF rules blocked specific PDF files during bill file replacement. Cloudflare config updated to allow the uploads.
+
 Updates:
 
 - ticket created by Connector for Salesforce & Jira on 2026-03-17
@@ -200,6 +220,8 @@ Customer/Account: Little Island (Prod)
 Product Area: Bills (Approval)
 
 Priority: High | Status: Done | Owner: Asif Rawloo
+
+Issue Summary: Known R&A framework bug — when an already-approved user is re-added individually to an approval group, their approval gets stuck as pending, blocking payment. Manually fixed to unblock; underlying framework bug remains open.
 
 Updates:
 
@@ -220,6 +242,8 @@ Product Area: Payments
 
 Priority: High | Status: Done | Owner: Manishwar Segu
 
+Issue Summary: Payment initiation from the list page threw "Cannot convert undefined or null to object". Fix deployed Mar 17.
+
 Updates:
 
 - ticket created by Connector for Salesforce & Jira on 2026-03-16
@@ -237,6 +261,8 @@ Customer/Account: Healthmap Solutions Inc (Prod)
 Product Area: Bills (Recurring/Approval)
 
 Priority: Medium | Status: Done | Owner: Abhishek Kumar
+
+Issue Summary: The "add approver" option is missing on existing recurring bills. Manually unblocked; confirmed as a FE bug — follow-up ticket to be created.
 
 Updates:
 
@@ -258,6 +284,8 @@ Product Area: Payments
 
 Priority: Medium | Status: Done | Owner: Karan Suthar
 
+Issue Summary: A Dec 2024 bill was stuck showing "Payment Initiated" due to data corruption from the partial-payments migration. Payment was actually processed correctly; display data manually fixed. Backlog ticket BP-7955 created for remaining affected bills.
+
 Updates:
 
 - ticket created by Eugene Velita on 2026-03-12
@@ -276,6 +304,8 @@ Customer/Account: Cocofloss (Prod)
 Product Area: Bills (Tags/Line Items)
 
 Priority: High | Status: Done | Owner: Abhishek Kumar
+
+Issue Summary: Tag API returning 500/503 due to DB query timeout — a recent change removed the 70k-tag fetch cap, causing all 700k NetSuite customer records to be fetched. Fix applied via accounting team to restore tag fetching.
 
 Updates:
 
@@ -298,6 +328,8 @@ Product Area: Vendor Credits
 
 Priority: Medium | Status: Done | Owner: Gayathri Nair
 
+Issue Summary: Document upload on vendor credits fails silently when a linked document already exists and PDF conversion fails. Unlike bills, no error message is surfaced. Fix deployed; FE task added for error messaging.
+
 Updates:
 
 - ticket created by Connector for Salesforce & Jira on 2026-03-11
@@ -318,6 +350,8 @@ Product Area: Payments (Approvals)
 
 Priority: High | Status: Done | Owner: Sagar Parthasarathy
 
+Issue Summary: Accessing a payment approval draft returned an "Oops Something went wrong" error, blocking payment initiation. Fix deployed.
+
 Updates:
 
 - ticket created by Connector for Salesforce & Jira on 2026-03-10
@@ -335,6 +369,8 @@ Customer/Account: GHC (Prod)
 Product Area: Bills (Create/Edit) / Infrastructure
 
 Priority: High | Status: Done | Owner: Sagar Parthasarathy
+
+Issue Summary: Replacing a PDF on a pending bill returned 403 for specific files due to Cloudflare WAF blocking. FE error handling added (instead of infinite loader) and Cloudflare config updated.
 
 Updates:
 
@@ -358,6 +394,8 @@ Product Area: Bills (Drafts/Visibility)
 
 Priority: Medium | Status: Done | Owner: Abhishek Kumar
 
+Issue Summary: Users with "Create Bills" permission could see all draft bills, including those created by other users. Fix deployed to scope draft visibility to own drafts only.
+
 Updates:
 
 - ticket created by Connector for Salesforce & Jira on 2026-03-05
@@ -376,6 +414,8 @@ Customer/Account: Not specified (Prod)
 Product Area: Payments (International)
 
 Priority: Medium | Status: Done | Owner: Gayathri Nair
+
+Issue Summary: Multi-vendor international payment proposal failed because virtual card was selected as payment method for non-USD bills, which is unsupported. No UI validation prevents this. Secondary data issue: `preferred_payment_method` set to "virtual" for non-US bank country vendors.
 
 Updates:
 
@@ -396,6 +436,8 @@ Customer/Account: Trailblazer (Prod)
 Product Area: Bills (POA)
 
 Priority: Medium | Status: Done | Owner: Abhishek Kumar
+
+Issue Summary: Bills approved via Slack were not being auto-marked as POA. Root cause: the Slack approval path calls `BillFacade.approve` but skips `handle_paid_outside_airbase_on_bill_approval_v2`. Fix deployed; follow-up ticket created for full Slack/email vs. platform approval parity.
 
 Updates:
 
