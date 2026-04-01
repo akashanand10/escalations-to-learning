@@ -40,7 +40,7 @@ All variables below are configurable. **Ask the user** to confirm or override ea
 2. **Jira project** — Which Jira project to create the ticket in? (default: `BP`)
 3. **Parent ticket** — Parent epic/story key? (default: `BP-7479`)
 4. **Assignee** — Who should the ticket be assigned to? Enter an email, or say "unassigned" to leave it blank.
-5. **Label** — Which label to apply? (default: `bp-velocity`)
+5. **Label** — Which label to apply? (default: `bp-velocity`). Don't add random labels.
 6. **Issue type** — What type of Jira issue? (default: `Task`)
 
 Proceed only after the user has confirmed. Use defaults for any value the user doesn't explicitly override.

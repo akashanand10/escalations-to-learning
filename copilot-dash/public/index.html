@@ -1,0 +1,1473 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Copilot Dash</title>
+    <style>
+      :root {
+        --bg: #0d1117;
+        --surface: #161b22;
+        --surface2: #1c2333;
+        --border: #30363d;
+        --text: #e6edf3;
+        --text-muted: #8b949e;
+        --accent: #58a6ff;
+        --accent-hover: #79c0ff;
+        --green: #3fb950;
+        --orange: #d29922;
+        --red: #f85149;
+        --purple: #bc8cff;
+        --radius: 8px;
+        --font:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+          sans-serif;
+        --mono: "SF Mono", "Fira Code", "Fira Mono", Menlo, Consolas, monospace;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: var(--font);
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ─── Header ─────────────────────────────────────── */
+      header {
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        padding: 16px 24px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      header .logo {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--accent);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      header .logo svg {
+        width: 24px;
+        height: 24px;
+        fill: var(--accent);
+      }
+
+      header .status {
+        margin-left: auto;
+        font-size: 12px;
+        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      header .status .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--green);
+      }
+
+      header .status .dot.offline {
+        background: var(--red);
+      }
+
+      /* ─── Main Layout ────────────────────────────────── */
+      .container {
+        display: flex;
+        flex: 1;
+        overflow: hidden;
+      }
+
+      /* ─── Sidebar ────────────────────────────────────── */
+      .sidebar {
+        width: 360px;
+        min-width: 360px;
+        background: var(--surface);
+        border-right: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+      }
+
+      .sidebar-section {
+        padding: 16px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .sidebar-section h3 {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text-muted);
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .sidebar-section h3 .count {
+        background: var(--surface2);
+        color: var(--accent);
+        font-size: 10px;
+        padding: 1px 6px;
+        border-radius: 10px;
+      }
+
+      .category-tag {
+        display: inline-block;
+        font-size: 10px;
+        padding: 2px 7px;
+        border-radius: 4px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      .category-tag.escalation {
+        background: #f8514922;
+        color: var(--red);
+      }
+      .category-tag.qase {
+        background: #58a6ff22;
+        color: var(--accent);
+      }
+      .category-tag.jira {
+        background: #d2992222;
+        color: var(--orange);
+      }
+      .category-tag.analysis {
+        background: #bc8cff22;
+        color: var(--purple);
+      }
+      .category-tag.custom {
+        background: #3fb95022;
+        color: var(--green);
+      }
+
+      /* ─── Preset Card ────────────────────────────────── */
+      .preset-card {
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 10px 12px;
+        margin-bottom: 8px;
+        cursor: pointer;
+        transition:
+          border-color 0.15s,
+          background 0.15s;
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .preset-card:hover {
+        border-color: var(--accent);
+        background: #1c233388;
+      }
+
+      .preset-card.selected {
+        border-color: var(--accent);
+        background: #58a6ff11;
+      }
+
+      .preset-card input[type="checkbox"] {
+        margin-top: 3px;
+        accent-color: var(--accent);
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+      }
+
+      .preset-info {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .preset-info .label {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 3px;
+      }
+
+      .preset-info .desc {
+        font-size: 11px;
+        color: var(--text-muted);
+        line-height: 1.4;
+      }
+
+      .preset-meta {
+        display: flex;
+        gap: 6px;
+        margin-top: 5px;
+        align-items: center;
+      }
+
+      .preset-meta .badge {
+        font-size: 10px;
+        padding: 1px 5px;
+        border-radius: 3px;
+        background: var(--border);
+        color: var(--text-muted);
+      }
+
+      /* ─── Actions Bar ────────────────────────────────── */
+      .actions-bar {
+        padding: 12px 16px;
+        border-top: 1px solid var(--border);
+        background: var(--surface);
+        display: flex;
+        gap: 8px;
+        flex-shrink: 0;
+      }
+
+      .actions-bar button {
+        flex: 1;
+        padding: 8px 12px;
+        border-radius: var(--radius);
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        border: 1px solid var(--border);
+        transition: all 0.15s;
+      }
+
+      .btn-primary {
+        background: var(--accent);
+        color: #fff;
+        border-color: var(--accent) !important;
+      }
+
+      .btn-primary:hover {
+        background: var(--accent-hover);
+      }
+      .btn-primary:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .btn-secondary {
+        background: var(--surface2);
+        color: var(--text);
+      }
+
+      .btn-secondary:hover {
+        background: var(--border);
+      }
+
+      .btn-chain {
+        background: var(--purple);
+        color: #fff;
+        border-color: var(--purple) !important;
+      }
+
+      .btn-chain:hover {
+        background: #d2a8ff;
+      }
+      .btn-chain:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      /* ─── Main Panel ─────────────────────────────────── */
+      .main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      /* ─── Prompt Area ────────────────────────────────── */
+      .prompt-area {
+        padding: 16px 24px;
+        border-bottom: 1px solid var(--border);
+        background: var(--surface);
+      }
+
+      .prompt-area label {
+        display: block;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text-muted);
+        margin-bottom: 8px;
+      }
+
+      .prompt-row {
+        display: flex;
+        gap: 8px;
+      }
+
+      .prompt-input {
+        flex: 1;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 10px 14px;
+        font-size: 14px;
+        font-family: var(--mono);
+        color: var(--text);
+        resize: vertical;
+        min-height: 44px;
+        max-height: 200px;
+        line-height: 1.5;
+      }
+
+      .prompt-input:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px #58a6ff22;
+      }
+
+      .prompt-input::placeholder {
+        color: var(--text-muted);
+      }
+
+      .prompt-send {
+        padding: 10px 20px;
+        border-radius: var(--radius);
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: background 0.15s;
+      }
+
+      .prompt-send:hover {
+        background: var(--accent-hover);
+      }
+      .prompt-send:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      /* Options row */
+      .options-row {
+        display: flex;
+        gap: 12px;
+        margin-top: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .options-row label {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 12px;
+        text-transform: none;
+        letter-spacing: normal;
+        color: var(--text-muted);
+        cursor: pointer;
+        margin-bottom: 0;
+      }
+
+      .options-row select {
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 4px 8px;
+        font-size: 12px;
+        color: var(--text);
+      }
+
+      .options-row select:focus {
+        outline: none;
+        border-color: var(--accent);
+      }
+
+      /* ─── Output Area ────────────────────────────────── */
+      .output-area {
+        flex: 1;
+        overflow-y: auto;
+        padding: 20px 24px;
+      }
+
+      .output-placeholder {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        color: var(--text-muted);
+        text-align: center;
+        gap: 12px;
+      }
+
+      .output-placeholder svg {
+        width: 48px;
+        height: 48px;
+        opacity: 0.3;
+      }
+
+      .output-placeholder p {
+        font-size: 14px;
+      }
+
+      .output-block {
+        margin-bottom: 20px;
+      }
+
+      .output-block .chain-header {
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--purple);
+        margin-bottom: 8px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .output-block .chain-header .chain-num {
+        background: var(--purple);
+        color: #fff;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+      }
+
+      .output-content {
+        font-family: var(--mono);
+        font-size: 13px;
+        line-height: 1.7;
+        white-space: pre-wrap;
+        word-break: break-word;
+        color: var(--text);
+      }
+
+      .output-content.streaming::after {
+        content: "▊";
+        animation: blink 0.8s infinite;
+        color: var(--accent);
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+
+      .output-error {
+        color: var(--red);
+        background: #f8514911;
+        border: 1px solid #f8514933;
+        border-radius: var(--radius);
+        padding: 12px;
+        font-family: var(--mono);
+        font-size: 13px;
+      }
+
+      /* ─── Status Bar ─────────────────────────────────── */
+      .status-bar {
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+        padding: 6px 24px;
+        font-size: 11px;
+        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .status-bar .running {
+        color: var(--orange);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .spinner {
+        width: 12px;
+        height: 12px;
+        border: 2px solid var(--border);
+        border-top-color: var(--orange);
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* ─── Filter Tabs ────────────────────────────────── */
+      .filter-tabs {
+        display: flex;
+        gap: 4px;
+        padding: 0;
+        margin-bottom: 12px;
+      }
+
+      .filter-tab {
+        padding: 4px 10px;
+        font-size: 11px;
+        border-radius: 4px;
+        border: 1px solid var(--border);
+        background: transparent;
+        color: var(--text-muted);
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+
+      .filter-tab:hover {
+        border-color: var(--accent);
+        color: var(--text);
+      }
+      .filter-tab.active {
+        background: var(--accent);
+        color: #fff;
+        border-color: var(--accent);
+      }
+
+      /* ─── Scrollbar ──────────────────────────────────── */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--text-muted);
+      }
+
+      /* ─── Preset Delete Button ───────────────────────── */
+      .preset-card .btn-delete-preset {
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        font-size: 14px;
+        cursor: pointer;
+        padding: 2px 4px;
+        border-radius: 4px;
+        opacity: 0;
+        transition: all 0.15s;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+      .preset-card:hover .btn-delete-preset {
+        opacity: 1;
+      }
+      .preset-card .btn-delete-preset:hover {
+        color: var(--red);
+        background: #f8514922;
+      }
+
+      /* ─── Add Preset Form ────────────────────────────── */
+      .add-preset-form {
+        background: var(--surface2);
+        border: 1px solid var(--accent);
+        border-radius: var(--radius);
+        padding: 14px;
+        margin-bottom: 12px;
+        display: none;
+      }
+      .add-preset-form.visible {
+        display: block;
+      }
+      .add-preset-form h4 {
+        font-size: 12px;
+        color: var(--accent);
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+      .form-group {
+        margin-bottom: 8px;
+      }
+      .form-group label {
+        display: block;
+        font-size: 11px;
+        color: var(--text-muted);
+        margin-bottom: 4px;
+        text-transform: none;
+        letter-spacing: normal;
+      }
+      .form-group input,
+      .form-group textarea,
+      .form-group select {
+        width: 100%;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 6px 8px;
+        font-size: 12px;
+        color: var(--text);
+        font-family: var(--font);
+      }
+      .form-group textarea {
+        font-family: var(--mono);
+        min-height: 60px;
+        resize: vertical;
+      }
+      .form-group input:focus,
+      .form-group textarea:focus,
+      .form-group select:focus {
+        outline: none;
+        border-color: var(--accent);
+      }
+      .form-row {
+        display: flex;
+        gap: 8px;
+      }
+      .form-row .form-group {
+        flex: 1;
+      }
+      .form-actions {
+        display: flex;
+        gap: 8px;
+        margin-top: 10px;
+      }
+      .form-actions button {
+        padding: 6px 14px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        border: 1px solid var(--border);
+      }
+      .btn-form-save {
+        background: var(--green);
+        color: #fff;
+        border-color: var(--green) !important;
+      }
+      .btn-form-cancel {
+        background: var(--surface);
+        color: var(--text);
+      }
+
+      /* ─── Add Preset Button ──────────────────────────── */
+      .btn-add-preset {
+        background: none;
+        border: 1px dashed var(--border);
+        border-radius: var(--radius);
+        padding: 8px;
+        width: 100%;
+        color: var(--text-muted);
+        font-size: 12px;
+        cursor: pointer;
+        transition: all 0.15s;
+        margin-top: 4px;
+      }
+      .btn-add-preset:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      /* ─── Save Response Button ───────────────────────── */
+      .output-actions {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+      .btn-save-response {
+        padding: 6px 14px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        border: 1px solid var(--green);
+        background: #3fb95022;
+        color: var(--green);
+        display: none;
+        transition: all 0.15s;
+      }
+      .btn-save-response:hover {
+        background: #3fb95044;
+      }
+      .btn-save-response.visible {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      /* ─── Toast Notification ─────────────────────────── */
+      .toast {
+        position: fixed;
+        bottom: 40px;
+        right: 24px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 10px 16px;
+        font-size: 13px;
+        color: var(--text);
+        z-index: 1000;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        transform: translateY(20px);
+        opacity: 0;
+        transition: all 0.3s;
+      }
+      .toast.show {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      .toast.success {
+        border-color: var(--green);
+      }
+      .toast.error {
+        border-color: var(--red);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ─── Header ─────────────────────────────────────── -->
+    <header>
+      <div class="logo">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"
+          />
+        </svg>
+        Copilot Dash
+      </div>
+      <div class="status" id="health-status">
+        <span class="dot" id="health-dot"></span>
+        <span id="health-text">Checking...</span>
+      </div>
+    </header>
+
+    <div class="container">
+      <!-- ─── Sidebar ────────────────────────────────── -->
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <h3>Preset Queries <span class="count" id="preset-count">0</span></h3>
+          <div class="filter-tabs" id="filter-tabs">
+            <button class="filter-tab active" data-filter="all">All</button>
+            <button class="filter-tab" data-filter="escalation">
+              Escalation
+            </button>
+            <button class="filter-tab" data-filter="qase">Qase</button>
+            <button class="filter-tab" data-filter="jira">Jira</button>
+            <button class="filter-tab" data-filter="analysis">Analysis</button>
+            <button class="filter-tab" data-filter="custom">Custom</button>
+          </div>
+
+          <!-- Add Preset Form (hidden by default) -->
+          <div class="add-preset-form" id="add-preset-form">
+            <h4>Add Custom Preset</h4>
+            <div class="form-group">
+              <label>Label *</label>
+              <input
+                type="text"
+                id="new-preset-label"
+                placeholder="e.g. Check deployment status"
+              />
+            </div>
+            <div class="form-group">
+              <label>Prompt *</label>
+              <textarea
+                id="new-preset-prompt"
+                placeholder="Enter the prompt to run..."
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <input
+                type="text"
+                id="new-preset-desc"
+                placeholder="Short description (optional)"
+              />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Category</label>
+                <select id="new-preset-category">
+                  <option value="custom">Custom</option>
+                  <option value="escalation">Escalation</option>
+                  <option value="qase">Qase</option>
+                  <option value="jira">Jira</option>
+                  <option value="analysis">Analysis</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Effort</label>
+                <select id="new-preset-effort">
+                  <option value="">Default</option>
+                  <option value="low">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                  <option value="xhigh">Extra High</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>
+                <input type="checkbox" id="new-preset-tools" checked /> Enable
+                tools
+              </label>
+            </div>
+            <div class="form-actions">
+              <button class="btn-form-save" id="btn-save-preset">
+                Save Preset
+              </button>
+              <button class="btn-form-cancel" id="btn-cancel-preset">
+                Cancel
+              </button>
+            </div>
+          </div>
+
+          <div id="presets-list"></div>
+
+          <button class="btn-add-preset" id="btn-add-preset">
+            + Add Custom Preset
+          </button>
+        </div>
+
+        <div class="actions-bar">
+          <button class="btn-primary" id="btn-run-selected" disabled>
+            ▶ Run Selected
+          </button>
+          <button class="btn-chain" id="btn-chain" disabled>⛓ Chain Run</button>
+          <button class="btn-secondary" id="btn-clear-selection">Clear</button>
+        </div>
+      </aside>
+
+      <!-- ─── Main Panel ───────────────────────────────── -->
+      <div class="main">
+        <div class="prompt-area">
+          <label>Custom Prompt</label>
+          <div class="prompt-row">
+            <textarea
+              class="prompt-input"
+              id="prompt-input"
+              placeholder="Enter your prompt here... (e.g. 'Analyze the March escalation report and list top 3 issues')"
+              rows="2"
+            ></textarea>
+            <button class="prompt-send" id="btn-send">Send</button>
+          </div>
+          <div class="options-row">
+            <label>
+              <input type="checkbox" id="opt-tools" checked />
+              Tools
+            </label>
+            <label>
+              Effort:
+              <select id="opt-effort">
+                <option value="">Default</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+                <option value="xhigh">Extra High</option>
+              </select>
+            </label>
+            <label>
+              Model:
+              <select id="opt-model">
+                <option value="">Default</option>
+                <option value="gpt-4o">GPT-4o</option>
+                <option value="claude-sonnet-4">Claude Sonnet 4</option>
+                <option value="claude-opus-4">Claude Opus 4</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="output-area" id="output-area">
+          <div class="output-actions" id="output-actions">
+            <button class="btn-save-response" id="btn-save-response">
+              💾 Save Response
+            </button>
+          </div>
+          <div class="output-placeholder" id="output-placeholder">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"
+              />
+            </svg>
+            <p>Select a preset query or type your own prompt to get started</p>
+          </div>
+        </div>
+
+        <div class="status-bar" id="status-bar">
+          <span>Ready</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // ─── State ──────────────────────────────────────────
+      let presets = [];
+      let selectedIds = new Set();
+      let activeFilter = "all";
+      let isRunning = false;
+      let abortController = null;
+
+      // ─── DOM refs ───────────────────────────────────────
+      const presetsList = document.getElementById("presets-list");
+      const presetCount = document.getElementById("preset-count");
+      const filterTabs = document.getElementById("filter-tabs");
+      const outputArea = document.getElementById("output-area");
+      const outputPlaceholder = document.getElementById("output-placeholder");
+      const promptInput = document.getElementById("prompt-input");
+      const btnSend = document.getElementById("btn-send");
+      const btnRunSelected = document.getElementById("btn-run-selected");
+      const btnChain = document.getElementById("btn-chain");
+      const btnClearSelection = document.getElementById("btn-clear-selection");
+      const statusBar = document.getElementById("status-bar");
+      const healthDot = document.getElementById("health-dot");
+      const healthText = document.getElementById("health-text");
+      const optTools = document.getElementById("opt-tools");
+      const optEffort = document.getElementById("opt-effort");
+      const optModel = document.getElementById("opt-model");
+      const btnSaveResponse = document.getElementById("btn-save-response");
+      const btnAddPreset = document.getElementById("btn-add-preset");
+      const addPresetForm = document.getElementById("add-preset-form");
+      const btnSavePreset = document.getElementById("btn-save-preset");
+      const btnCancelPreset = document.getElementById("btn-cancel-preset");
+
+      // ─── Init ───────────────────────────────────────────
+      async function init() {
+        await checkHealth();
+        await loadPresets();
+        setupListeners();
+      }
+
+      async function checkHealth() {
+        try {
+          const res = await fetch("/api/health");
+          const data = await res.json();
+          if (data.ok) {
+            healthDot.className = "dot";
+            healthText.textContent = "Copilot CLI ready";
+          } else {
+            healthDot.className = "dot offline";
+            healthText.textContent = "Copilot CLI not found";
+          }
+        } catch {
+          healthDot.className = "dot offline";
+          healthText.textContent = "Server unreachable";
+        }
+      }
+
+      async function loadPresets() {
+        const res = await fetch("/api/presets");
+        presets = await res.json();
+        presetCount.textContent = presets.length;
+        renderPresets();
+      }
+
+      // ─── Render ─────────────────────────────────────────
+      function renderPresets() {
+        const filtered =
+          activeFilter === "all"
+            ? presets
+            : presets.filter((p) => p.category === activeFilter);
+
+        presetsList.innerHTML = filtered
+          .map(
+            (p) => `
+        <div class="preset-card ${selectedIds.has(p.id) ? "selected" : ""}" data-id="${p.id}">
+          <input type="checkbox" ${selectedIds.has(p.id) ? "checked" : ""} />
+          <div class="preset-info">
+            <div class="label">${esc(p.label)}</div>
+            <div class="desc">${esc(p.description || "")}</div>
+            <div class="preset-meta">
+              <span class="category-tag ${p.category}">${p.category}</span>
+              ${p.effort ? `<span class="badge">effort: ${p.effort}</span>` : ""}
+              ${p.tools ? `<span class="badge">tools</span>` : ""}
+              ${p.custom ? `<span class="badge" style="color:var(--green)">custom</span>` : ""}
+            </div>
+          </div>
+          ${p.custom ? `<button class="btn-delete-preset" data-delete-id="${p.id}" title="Delete preset">✕</button>` : ""}
+        </div>
+      `,
+          )
+          .join("");
+
+        // Click handlers
+        presetsList.querySelectorAll(".preset-card").forEach((card) => {
+          const id = card.dataset.id;
+          const cb = card.querySelector("input[type=checkbox]");
+
+          card.addEventListener("click", (e) => {
+            if (
+              e.target === cb ||
+              e.target.classList.contains("btn-delete-preset")
+            )
+              return;
+            togglePreset(id);
+          });
+
+          cb.addEventListener("change", () => togglePreset(id));
+        });
+
+        // Delete handlers for custom presets
+        presetsList.querySelectorAll(".btn-delete-preset").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            deletePreset(btn.dataset.deleteId);
+          });
+        });
+
+        updateButtons();
+      }
+
+      function togglePreset(id) {
+        if (selectedIds.has(id)) {
+          selectedIds.delete(id);
+        } else {
+          selectedIds.add(id);
+        }
+        renderPresets();
+      }
+
+      function updateButtons() {
+        const n = selectedIds.size;
+        btnRunSelected.disabled = n === 0 || isRunning;
+        btnRunSelected.textContent =
+          n > 0 ? `▶ Run Selected (${n})` : "▶ Run Selected";
+        btnChain.disabled = n < 2 || isRunning;
+        btnChain.textContent = n >= 2 ? `⛓ Chain (${n})` : "⛓ Chain Run";
+        btnSend.disabled = isRunning;
+      }
+
+      // ─── Listeners ──────────────────────────────────────
+      function setupListeners() {
+        // Filter tabs
+        filterTabs.querySelectorAll(".filter-tab").forEach((tab) => {
+          tab.addEventListener("click", () => {
+            filterTabs
+              .querySelectorAll(".filter-tab")
+              .forEach((t) => t.classList.remove("active"));
+            tab.classList.add("active");
+            activeFilter = tab.dataset.filter;
+            renderPresets();
+          });
+        });
+
+        // Send custom prompt
+        btnSend.addEventListener("click", sendCustomPrompt);
+        promptInput.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            sendCustomPrompt();
+          }
+        });
+
+        // Run selected
+        btnRunSelected.addEventListener("click", runSelected);
+
+        // Chain run
+        btnChain.addEventListener("click", chainRun);
+
+        // Clear
+        btnClearSelection.addEventListener("click", () => {
+          selectedIds.clear();
+          renderPresets();
+        });
+
+        // Save response
+        btnSaveResponse.addEventListener("click", saveResponse);
+
+        // Add preset form toggle
+        btnAddPreset.addEventListener("click", () => {
+          addPresetForm.classList.toggle("visible");
+          if (addPresetForm.classList.contains("visible")) {
+            document.getElementById("new-preset-label").focus();
+          }
+        });
+
+        // Save new preset
+        btnSavePreset.addEventListener("click", addCustomPreset);
+
+        // Cancel add preset
+        btnCancelPreset.addEventListener("click", () => {
+          addPresetForm.classList.remove("visible");
+          clearPresetForm();
+        });
+      }
+
+      // ─── Execute: Custom Prompt ─────────────────────────
+      async function sendCustomPrompt() {
+        const prompt = promptInput.value.trim();
+        if (!prompt || isRunning) return;
+
+        clearOutput();
+        const el = createOutputBlock();
+        await streamQuery(
+          {
+            prompt,
+            tools: optTools.checked,
+            effort: optEffort.value || undefined,
+            model: optModel.value || undefined,
+          },
+          el,
+          "/api/query",
+        );
+      }
+
+      // ─── Execute: Run Selected (parallel) ───────────────
+      async function runSelected() {
+        if (selectedIds.size === 0 || isRunning) return;
+
+        clearOutput();
+        const selected = presets.filter((p) => selectedIds.has(p.id));
+
+        for (const preset of selected) {
+          const el = createOutputBlock(preset.label);
+          await streamQuery(
+            {
+              prompt: preset.prompt,
+              tools: preset.tools,
+              effort: preset.effort,
+            },
+            el,
+            "/api/query",
+          );
+        }
+      }
+
+      // ─── Execute: Chain Run ─────────────────────────────
+      async function chainRun() {
+        if (selectedIds.size < 2 || isRunning) return;
+
+        clearOutput();
+        const queries = presets
+          .filter((p) => selectedIds.has(p.id))
+          .map((p) => ({
+            prompt: p.prompt,
+            label: p.label,
+            tools: p.tools,
+            effort: p.effort,
+          }));
+
+        setRunning(true);
+
+        const blocks = {};
+        queries.forEach((q, i) => {
+          blocks[i] = createOutputBlock(`Step ${i + 1}: ${q.label}`);
+        });
+
+        try {
+          const res = await fetch("/api/query-chain", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ queries }),
+          });
+
+          const reader = res.body.getReader();
+          const decoder = new TextDecoder();
+          let buffer = "";
+
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            buffer += decoder.decode(value, { stream: true });
+            const lines = buffer.split("\n");
+            buffer = lines.pop() || "";
+
+            for (const line of lines) {
+              if (!line.startsWith("data: ")) continue;
+              const data = JSON.parse(line.slice(6));
+
+              if (data.type === "chunk" && data.index !== undefined) {
+                appendToBlock(blocks[data.index], data.text);
+              } else if (data.type === "chain-start") {
+                setStatus(`Running step ${data.index + 1}: ${data.label}...`);
+              } else if (data.type === "error") {
+                showError(blocks[data.index ?? 0], data.text);
+              } else if (data.type === "done") {
+                setStatus("Chain complete");
+              }
+            }
+          }
+        } catch (err) {
+          setStatus(`Error: ${err.message}`);
+        } finally {
+          setRunning(false);
+          finalizeAllBlocks();
+        }
+      }
+
+      // ─── SSE Stream Helper ──────────────────────────────
+      async function streamQuery(body, outputEl, endpoint) {
+        setRunning(true);
+        setStatus("Running query...");
+
+        try {
+          const res = await fetch(endpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+          });
+
+          const reader = res.body.getReader();
+          const decoder = new TextDecoder();
+          let buffer = "";
+
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            buffer += decoder.decode(value, { stream: true });
+            const lines = buffer.split("\n");
+            buffer = lines.pop() || "";
+
+            for (const line of lines) {
+              if (!line.startsWith("data: ")) continue;
+              const data = JSON.parse(line.slice(6));
+
+              if (data.type === "chunk") {
+                appendToBlock(outputEl, data.text);
+              } else if (data.type === "error") {
+                showError(outputEl, data.text);
+              } else if (data.type === "done") {
+                setStatus("Done");
+              }
+            }
+          }
+        } catch (err) {
+          showError(outputEl, err.message);
+        } finally {
+          setRunning(false);
+          finalizeBlock(outputEl);
+        }
+      }
+
+      // ─── DOM Helpers ────────────────────────────────────
+      function clearOutput() {
+        outputArea
+          .querySelectorAll(".output-block")
+          .forEach((el) => el.remove());
+        if (outputPlaceholder) outputPlaceholder.remove();
+        btnSaveResponse.classList.remove("visible");
+      }
+
+      function createOutputBlock(title) {
+        outputPlaceholder?.remove();
+        const block = document.createElement("div");
+        block.className = "output-block";
+
+        if (title) {
+          const idx = outputArea.querySelectorAll(".output-block").length + 1;
+          block.innerHTML = `
+          <div class="chain-header">
+            <span class="chain-num">${idx}</span>
+            ${esc(title)}
+          </div>
+        `;
+        }
+
+        const content = document.createElement("div");
+        content.className = "output-content streaming";
+        block.appendChild(content);
+        outputArea.appendChild(block);
+        return content;
+      }
+
+      function appendToBlock(el, text) {
+        el.textContent += text;
+        el.scrollIntoView({ block: "end", behavior: "smooth" });
+      }
+
+      function finalizeBlock(el) {
+        el.classList.remove("streaming");
+      }
+
+      function finalizeAllBlocks() {
+        outputArea
+          .querySelectorAll(".output-content.streaming")
+          .forEach((el) => {
+            el.classList.remove("streaming");
+          });
+      }
+
+      function showError(el, message) {
+        const errDiv = document.createElement("div");
+        errDiv.className = "output-error";
+        errDiv.textContent = message;
+        el.parentElement.appendChild(errDiv);
+      }
+
+      function setRunning(running) {
+        isRunning = running;
+        updateButtons();
+        // Show save button when done running and there's output
+        if (!running) {
+          const hasContent =
+            outputArea.querySelectorAll(".output-content").length > 0;
+          btnSaveResponse.classList.toggle("visible", hasContent);
+        } else {
+          btnSaveResponse.classList.remove("visible");
+        }
+      }
+
+      function setStatus(text) {
+        if (isRunning) {
+          statusBar.innerHTML = `<span class="running"><span class="spinner"></span>${esc(text)}</span>`;
+        } else {
+          statusBar.innerHTML = `<span>${esc(text)}</span>`;
+        }
+      }
+
+      function esc(s) {
+        const d = document.createElement("div");
+        d.textContent = s;
+        return d.innerHTML;
+      }
+
+      // ─── Save Response ──────────────────────────────────
+      async function saveResponse() {
+        const blocks = outputArea.querySelectorAll(".output-content");
+        if (blocks.length === 0) return;
+
+        let content = "";
+        blocks.forEach((block, i) => {
+          const header = block.parentElement.querySelector(".chain-header");
+          if (header) content += `## ${header.textContent.trim()}\n\n`;
+          content += block.textContent + "\n\n";
+        });
+
+        // Use first line or prompt as title
+        const title =
+          promptInput.value.trim().slice(0, 80) || "Copilot Response";
+
+        try {
+          const res = await fetch("/api/save-response", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ content: content.trim(), title }),
+          });
+          const data = await res.json();
+          if (data.ok) {
+            showToast(`Saved to ${data.filename}`, "success");
+          } else {
+            showToast(`Error: ${data.error}`, "error");
+          }
+        } catch (err) {
+          showToast(`Failed to save: ${err.message}`, "error");
+        }
+      }
+
+      // ─── Add Custom Preset ──────────────────────────────
+      async function addCustomPreset() {
+        const label = document.getElementById("new-preset-label").value.trim();
+        const prompt = document
+          .getElementById("new-preset-prompt")
+          .value.trim();
+        const description = document
+          .getElementById("new-preset-desc")
+          .value.trim();
+        const category = document.getElementById("new-preset-category").value;
+        const effort = document.getElementById("new-preset-effort").value;
+        const tools = document.getElementById("new-preset-tools").checked;
+
+        if (!label || !prompt) {
+          showToast("Label and Prompt are required", "error");
+          return;
+        }
+
+        try {
+          const res = await fetch("/api/presets", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              label,
+              prompt,
+              description,
+              category,
+              effort: effort || undefined,
+              tools,
+            }),
+          });
+          const data = await res.json();
+          if (data.id) {
+            presets.push(data);
+            presetCount.textContent = presets.length;
+            renderPresets();
+            addPresetForm.classList.remove("visible");
+            clearPresetForm();
+            showToast(`Preset "${label}" added`, "success");
+          } else {
+            showToast(`Error: ${data.error}`, "error");
+          }
+        } catch (err) {
+          showToast(`Failed to save preset: ${err.message}`, "error");
+        }
+      }
+
+      function clearPresetForm() {
+        document.getElementById("new-preset-label").value = "";
+        document.getElementById("new-preset-prompt").value = "";
+        document.getElementById("new-preset-desc").value = "";
+        document.getElementById("new-preset-category").value = "custom";
+        document.getElementById("new-preset-effort").value = "";
+        document.getElementById("new-preset-tools").checked = true;
+      }
+
+      // ─── Delete Custom Preset ───────────────────────────
+      async function deletePreset(id) {
+        try {
+          const res = await fetch(`/api/presets/${id}`, { method: "DELETE" });
+          const data = await res.json();
+          if (data.ok) {
+            selectedIds.delete(id);
+            presets = presets.filter((p) => p.id !== id);
+            presetCount.textContent = presets.length;
+            renderPresets();
+            showToast("Preset deleted", "success");
+          } else {
+            showToast(`Error: ${data.error}`, "error");
+          }
+        } catch (err) {
+          showToast(`Failed to delete: ${err.message}`, "error");
+        }
+      }
+
+      // ─── Toast Notification ─────────────────────────────
+      function showToast(message, type = "success") {
+        const existing = document.querySelector(".toast");
+        if (existing) existing.remove();
+
+        const toast = document.createElement("div");
+        toast.className = `toast ${type}`;
+        toast.textContent = message;
+        document.body.appendChild(toast);
+
+        requestAnimationFrame(() => toast.classList.add("show"));
+        setTimeout(() => {
+          toast.classList.remove("show");
+          setTimeout(() => toast.remove(), 300);
+        }, 3000);
+      }
+
+      // ─── Boot ───────────────────────────────────────────
+      init();
+    </script>
+  </body>
+</html>
