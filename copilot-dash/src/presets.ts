@@ -127,7 +127,7 @@ export const PRESETS: PresetQuery[] = [
     label: "Generate Quarterly Report Outline",
     category: "analysis",
     prompt:
-      "Read the quarterly-escalation-analysis.instructions.md file and the analysis/ directory files. Based on the instructions and available data, generate an outline for the Q1 2026 quarterly escalation report with key sections and data points to include.",
+      "Read the .github/prompts/quarterly-escalation-analysis.prompt.md file and the analysis/ directory files. Based on the prompt and available data, generate an outline for the Q1 2026 quarterly escalation report with key sections and data points to include.",
     effort: "high",
     tools: true,
     description: "Draft a quarterly report outline from available monthly data",

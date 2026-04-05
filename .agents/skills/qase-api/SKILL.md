@@ -221,14 +221,16 @@ python3 $REST delete-defect --project DEMO 3
 
 ### Test Case Fields
 
-| Field        | Values                                                                                             |
-| ------------ | -------------------------------------------------------------------------------------------------- |
-| `severity`   | 0=undefined, 1=blocker, 2=critical, 3=major, 4=normal, 5=minor, 6=trivial                          |
-| `priority`   | 0=undefined, 1=high, 2=medium, 3=low                                                               |
-| `type`       | 0=other, 1=functional, 2=smoke, 3=regression, 4=security, 5=usability, 6=performance, 7=acceptance |
-| `behavior`   | 0=undefined, 1=positive, 2=negative, 3=destructive                                                 |
-| `automation` | 0=not-automated, 1=automated, 2=to-be-automated                                                    |
-| `status`     | 0=actual, 1=draft, 2=deprecated                                                                    |
+| Field             | Values                                                                                             |
+| ----------------- | -------------------------------------------------------------------------------------------------- |
+| `severity`        | 0=undefined, 1=blocker, 2=critical, 3=major, 4=normal, 5=minor, 6=trivial                          |
+| `priority`        | 0=undefined, 1=high, 2=medium, 3=low                                                               |
+| `type`            | 0=other, 1=functional, 2=smoke, 3=regression, 4=security, 5=usability, 6=performance, 7=acceptance |
+| `behavior`        | 0=undefined, 1=positive, 2=negative, 3=destructive                                                 |
+| `isManual`        | `true` = manual, `false` = automated                                                               |
+| `isToBeAutomated` | Boolean checkbox, independent of `isManual`                                                        |
+| `automation`      | Legacy field: `0` = manual, `2` = automated                                                        |
+| `status`          | 0=actual, 1=draft, 2=deprecated                                                                    |
 
 ### Status Values
 
@@ -238,6 +240,27 @@ python3 $REST delete-defect --project DEMO 3
 | Result status | `passed`, `failed`, `blocked`, `skipped`, `invalid`, `in_progress` |
 
 ---
+
+## Escalation Coverage Workflow Notes
+
+When mapping Jira escalations to Qase coverage:
+
+- Search titles from narrow to broad: exact phrase, then keywords, then local filtering against the full case list.
+- `list-cases --search` is exact substring matching only; it is not fuzzy or semantic.
+- Use suites to confirm whether a title match is in the right product area.
+- Score matches explicitly and separate direct coverage from adjacent feature coverage.
+- Do not suggest new cases until the user approves.
+- Before creating suites or cases, run duplicate checks and show the likely overlaps.
+- Link any created case back to the Jira ticket for traceability.
+
+## Automation Audit Workflow Notes
+
+When checking whether a Qase case is automated:
+
+- Prefer `isManual` and `isToBeAutomated` over the legacy `automation` integer.
+- Treat the codebase as the source of truth if Qase metadata and repo evidence disagree.
+- Search for both numeric and project-prefixed Qase references, for example `qase(123, ...)` and `qase('ABP-123', ...)`.
+- If automation exists in code, report the evidence and update Qase instead of creating duplicate Jira work.
 
 ## Common Workflows
 

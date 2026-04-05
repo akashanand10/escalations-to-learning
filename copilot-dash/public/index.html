@@ -35,9 +35,10 @@
         font-family: var(--font);
         background: var(--bg);
         color: var(--text);
-        min-height: 100vh;
+        height: 100vh;
         display: flex;
         flex-direction: column;
+        overflow: hidden;
       }
 
       /* ─── Header ─────────────────────────────────────── */
@@ -90,6 +91,7 @@
         display: flex;
         flex: 1;
         overflow: hidden;
+        min-height: 0;
       }
 
       /* ─── Sidebar ────────────────────────────────────── */
@@ -100,12 +102,15 @@
         border-right: 1px solid var(--border);
         display: flex;
         flex-direction: column;
-        overflow-y: auto;
+        overflow: hidden;
       }
 
       .sidebar-section {
         padding: 16px;
         border-bottom: 1px solid var(--border);
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
       }
 
       .sidebar-section h3 {
@@ -233,6 +238,9 @@
         display: flex;
         gap: 8px;
         flex-shrink: 0;
+        position: sticky;
+        bottom: 0;
+        z-index: 2;
       }
 
       .actions-bar button {
@@ -289,6 +297,7 @@
         display: flex;
         flex-direction: column;
         overflow: hidden;
+        min-height: 0;
       }
 
       /* ─── Prompt Area ────────────────────────────────── */
@@ -398,6 +407,7 @@
         flex: 1;
         overflow-y: auto;
         padding: 20px 24px;
+        min-height: 0;
       }
 
       .output-placeholder {
@@ -741,7 +751,143 @@
       .toast.error {
         border-color: var(--red);
       }
+
+      /* ─── Toggle Preview Button ──────────────────────── */
+      .btn-toggle-preview {
+        padding: 6px 14px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        border: 1px solid var(--accent);
+        background: #58a6ff22;
+        color: var(--accent);
+        display: none;
+        transition: all 0.15s;
+      }
+      .btn-toggle-preview:hover {
+        background: #58a6ff44;
+      }
+      .btn-toggle-preview.visible {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      /* ─── Markdown Preview ───────────────────────────── */
+      .output-content.md-preview {
+        font-family: var(--font);
+        font-size: 14px;
+        line-height: 1.7;
+        white-space: normal;
+      }
+      .output-content.md-preview h1,
+      .output-content.md-preview h2,
+      .output-content.md-preview h3,
+      .output-content.md-preview h4,
+      .output-content.md-preview h5,
+      .output-content.md-preview h6 {
+        margin: 16px 0 8px;
+        line-height: 1.3;
+        font-weight: 600;
+        color: var(--text);
+      }
+      .output-content.md-preview h1 {
+        font-size: 22px;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 6px;
+      }
+      .output-content.md-preview h2 {
+        font-size: 18px;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 4px;
+      }
+      .output-content.md-preview h3 {
+        font-size: 16px;
+      }
+      .output-content.md-preview h4 {
+        font-size: 14px;
+      }
+      .output-content.md-preview p {
+        margin: 0 0 10px;
+      }
+      .output-content.md-preview ul,
+      .output-content.md-preview ol {
+        margin: 0 0 10px 24px;
+      }
+      .output-content.md-preview li {
+        margin-bottom: 4px;
+      }
+      .output-content.md-preview code {
+        font-family: var(--mono);
+        font-size: 12px;
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: 3px;
+        padding: 1px 5px;
+        color: var(--purple);
+      }
+      .output-content.md-preview pre {
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 12px 16px;
+        overflow-x: auto;
+        margin: 0 0 12px;
+      }
+      .output-content.md-preview pre code {
+        background: none;
+        border: none;
+        padding: 0;
+        color: var(--text);
+        font-size: 13px;
+      }
+      .output-content.md-preview blockquote {
+        border-left: 3px solid var(--accent);
+        margin: 0 0 10px;
+        padding: 4px 0 4px 14px;
+        color: var(--text-muted);
+      }
+      .output-content.md-preview table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 0 0 12px;
+        font-size: 13px;
+      }
+      .output-content.md-preview th,
+      .output-content.md-preview td {
+        border: 1px solid var(--border);
+        padding: 6px 12px;
+        text-align: left;
+      }
+      .output-content.md-preview th {
+        background: var(--surface2);
+        font-weight: 600;
+        color: var(--text-muted);
+      }
+      .output-content.md-preview tr:nth-child(even) td {
+        background: #ffffff08;
+      }
+      .output-content.md-preview a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      .output-content.md-preview a:hover {
+        text-decoration: underline;
+      }
+      .output-content.md-preview hr {
+        border: none;
+        border-top: 1px solid var(--border);
+        margin: 14px 0;
+      }
+      .output-content.md-preview strong {
+        font-weight: 700;
+      }
+      .output-content.md-preview em {
+        color: var(--text-muted);
+      }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   </head>
   <body>
     <!-- ─── Header ─────────────────────────────────────── -->
@@ -898,6 +1044,9 @@
 
         <div class="output-area" id="output-area">
           <div class="output-actions" id="output-actions">
+            <button class="btn-toggle-preview" id="btn-toggle-preview">
+              📄 Raw
+            </button>
             <button class="btn-save-response" id="btn-save-response">
               💾 Save Response
             </button>
@@ -925,6 +1074,7 @@
       let activeFilter = "all";
       let isRunning = false;
       let abortController = null;
+      let previewMode = true;
 
       // ─── DOM refs ───────────────────────────────────────
       const presetsList = document.getElementById("presets-list");
@@ -944,6 +1094,7 @@
       const optEffort = document.getElementById("opt-effort");
       const optModel = document.getElementById("opt-model");
       const btnSaveResponse = document.getElementById("btn-save-response");
+      const btnTogglePreview = document.getElementById("btn-toggle-preview");
       const btnAddPreset = document.getElementById("btn-add-preset");
       const addPresetForm = document.getElementById("add-preset-form");
       const btnSavePreset = document.getElementById("btn-save-preset");
@@ -1092,6 +1243,18 @@
 
         // Save response
         btnSaveResponse.addEventListener("click", saveResponse);
+
+        // Toggle markdown preview
+        btnTogglePreview.addEventListener("click", () => {
+          previewMode = !previewMode;
+          btnTogglePreview.textContent = previewMode ? "📄 Raw" : "✨ Preview";
+          outputArea
+            .querySelectorAll(".output-content:not(.streaming)")
+            .forEach((el) => {
+              if (previewMode) renderMarkdown(el);
+              else renderRaw(el);
+            });
+        });
 
         // Add preset form toggle
         btnAddPreset.addEventListener("click", () => {
@@ -1266,6 +1429,9 @@
           .forEach((el) => el.remove());
         if (outputPlaceholder) outputPlaceholder.remove();
         btnSaveResponse.classList.remove("visible");
+        btnTogglePreview.classList.remove("visible");
+        previewMode = true;
+        btnTogglePreview.textContent = "📄 Raw";
       }
 
       function createOutputBlock(title) {
@@ -1296,15 +1462,29 @@
       }
 
       function finalizeBlock(el) {
+        el.dataset.raw = el.textContent;
         el.classList.remove("streaming");
+        if (previewMode) renderMarkdown(el);
       }
 
       function finalizeAllBlocks() {
         outputArea
           .querySelectorAll(".output-content.streaming")
           .forEach((el) => {
+            el.dataset.raw = el.textContent;
             el.classList.remove("streaming");
+            if (previewMode) renderMarkdown(el);
           });
+      }
+
+      function renderMarkdown(el) {
+        el.innerHTML = marked.parse(el.dataset.raw || "");
+        el.classList.add("md-preview");
+      }
+
+      function renderRaw(el) {
+        el.textContent = el.dataset.raw || "";
+        el.classList.remove("md-preview");
       }
 
       function showError(el, message) {
@@ -1322,8 +1502,10 @@
           const hasContent =
             outputArea.querySelectorAll(".output-content").length > 0;
           btnSaveResponse.classList.toggle("visible", hasContent);
+          btnTogglePreview.classList.toggle("visible", hasContent);
         } else {
           btnSaveResponse.classList.remove("visible");
+          btnTogglePreview.classList.remove("visible");
         }
       }
 
@@ -1350,7 +1532,7 @@
         blocks.forEach((block, i) => {
           const header = block.parentElement.querySelector(".chain-header");
           if (header) content += `## ${header.textContent.trim()}\n\n`;
-          content += block.textContent + "\n\n";
+          content += (block.dataset.raw || block.textContent) + "\n\n";
         });
 
         // Use first line or prompt as title

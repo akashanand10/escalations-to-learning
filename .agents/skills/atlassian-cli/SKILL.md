@@ -1,6 +1,6 @@
 ---
 name: atlassian-cli
-description: "Use Atlassian CLI (acli) to interact with Jira and Confluence from the terminal. Use when: creating, editing, searching, or transitioning Jira work items; managing sprints, boards, and projects; viewing or creating Confluence pages and blog posts; querying Jira with JQL; bulk operations on issues; automating Atlassian workflows."
+description: "Use Atlassian CLI (acli) to interact with Jira and Confluence from the terminal. Use when: creating, editing, searching, or transitioning Jira work items; managing sprints, boards, and projects; viewing or creating Confluence pages and blog posts; querying Jira with JQL; bulk operations on issues; engineering escalation analysis; automating Atlassian workflows."
 argument-hint: "Describe what you want to do in Jira or Confluence (e.g. 'create a bug in PROJECT', 'search for my open issues')"
 ---
 
@@ -67,6 +67,44 @@ skills/atlassian-cli/scripts/jira-rest-search-and-detail.sh 'project = BP'
 | `failed to search work items`                                   | OAuth token expired or not Jira-scoped | Use backup client                               |
 | `failed to fetch work item details`                             | Same OAuth issue                       | Use backup client                               |
 | `acli jira auth status` shows `oauth_global` but API calls fail | Global auth doesn't have Jira scope    | Run `acli jira auth login` or use backup client |
+
+## Engineering Escalation Analysis Notes
+
+When producing monthly escalation reports, prefer the existing search-plus-detail utilities instead of hand-built shell loops.
+
+### Recommended flow
+
+```bash
+ACLI="/Users/aanand/Downloads/acli_0.1.2_darwin_arm64/acli"
+JQL='created >= "2026-03-01" AND project = BP AND type = "Engineering Escalation" AND created <= "2026-03-31" ORDER BY key DESC'
+
+skills/atlassian-cli/scripts/jira-search-and-detail.sh "$JQL"
+```
+
+If ACLI authentication fails, switch to the REST backup client:
+
+```bash
+skills/atlassian-cli/scripts/jira-rest-search-and-detail.sh "$JQL"
+```
+
+### Key constraints
+
+- `jira workitem search` only supports the default field set plus `issuetype`; do not request `created`, `reporter`, or `comment` there.
+- Use per-issue `view --fields "*all"` or the shared detail scripts when you need comments and metadata.
+- `acli jira workitem view` does not populate `.changelog`; infer timelines from created timestamps and comments.
+- Jira comment bodies are ADF trees, not plain strings. Extract recursive `.text` content rather than assuming a flat `.body` string.
+- Avoid complex inline `jq` inside zsh loops. Prefer the checked-in jq filter files.
+- Handle per-key failures defensively so one bad issue does not collapse the whole batch.
+
+### Useful scripts
+
+- `skills/atlassian-cli/scripts/jira-extract-list.jq`
+- `skills/atlassian-cli/scripts/jira-extract-detail.jq`
+- `skills/atlassian-cli/scripts/jira-bulk-details.sh`
+- `skills/atlassian-cli/scripts/jira-search-and-detail.sh`
+- `skills/atlassian-cli/scripts/jira-rest.py`
+- `skills/atlassian-cli/scripts/jira-rest-bulk-details.sh`
+- `skills/atlassian-cli/scripts/jira-rest-search-and-detail.sh`
 
 ## Authentication
 
@@ -196,6 +234,36 @@ $ACLI jira workitem edit --key "KEY-123" --labels "bug,critical"
 # Remove assignee
 $ACLI jira workitem edit --key "KEY-123" --remove-assignee
 ```
+
+### Jira: Qase Automation Tracking Ticket Pattern
+
+Use this pattern when opening Jira work to automate an existing Qase test case.
+
+```bash
+$ACLI jira workitem create \
+   --project "BP" \
+   --type "Task" \
+   --summary "Automate Qase test ABP-7: <test case title>" \
+   --description "Qase Test Case: ABP-7 (https://app.qase.io/case/ABP-7)
+
+Title: <test case title>
+
+Current Status: Manual test
+
+Acceptance Criteria:
+- Create the automation that covers the Qase scenario
+- Link the automation back to Qase with the qase(...) wrapper
+- Update the Qase case status after the automation is merged" \
+   --parent "BP-7479"
+
+$ACLI jira workitem edit --key "BP-1234" --labels "bp-velocity"
+```
+
+Notes:
+
+- If the issue should be unassigned, omit `--assignee`.
+- Apply labels after creation if they are not part of the create flow.
+- Reuse the exact Qase case ID and link in the description for traceability.
 
 ### Jira: Transition a Work Item
 
