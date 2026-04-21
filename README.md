@@ -234,6 +234,9 @@ Distilled from the broader vision in _[From Escalations to Organisational Learni
 
 * **Always-on background agent.** Move from "developer types `/Escalation-Pipeline-Orchestrator`" to a scheduled or event-driven agent that runs the analysis the moment a month rolls over (or a new escalation lands), then surfaces the result for human review.
 
+* **Copilot Dash — a non-IDE surface.** A small Express + TypeScript web UI ([`copilot-dash/`](./copilot-dash/)) that exposes the same prompts as a one-click dashboard for non-developers (PMs, QA leads, support). Prompts run on the same Copilot + skills backbone — IDE remains the source of truth, the dash is just a friendlier front door.
+![alt text](image.png) ![alt text](image-1.png)
+
 The long arc: turn Copilot from an IDE assistant into a **Context Engine for Engineering Decisions** — one that can detect risk across the engineering work graph, explain it, act on it, and convert each outcome into reusable organisational memory.
 
 ## Final pipeline summary (example)
