@@ -58,13 +58,17 @@ Confluence source: [Escalation Management Pipeline — Automathon Overview](http
 The pipeline is exposed as a **Copilot Chat slash-command prompt**. Once the repo is open in VS Code, GitHub Copilot Chat picks the prompts up automatically from `.github/prompts/`.
 
 1. **Open Copilot Chat** in VS Code (`⌃⌘I` on macOS, or the Copilot icon in the sidebar).
+
 2. Switch the chat mode to **Agent** (the dropdown next to the chat input). Agent mode is required so Copilot can call the Jira / Confluence / Qase tools.
+
 3. Type `/` in the chat input — VS Code shows all available prompts. Pick `/Escalation-Pipeline-Orchestrator` (or any of the individual phase prompts: `/jira-escalation-to-confluence`, `/monthly-escalation-summary`, `/escalation-test-coverage-review`, `/qase-add-confirmed-cases`, `/qase-automation-jira-tasks`).
+
 4. Provide the inputs in plain English, e.g.:
 
    * `/Escalation-Pipeline-Orchestrator Do this for March 2026.`
 
    * `/Escalation-Pipeline-Orchestrator resume https://paylocity.atlassian.net/wiki/spaces/.../pages/3111551235`
+
 5. Approve at each gate by typing `yes`, `proceed`, `skip`, `edit`, or `stop`.
 
 > **Tip.** Run any single phase prompt the same way (`/escalation-test-coverage-review for BP-7672`) when you only need part of the workflow.
