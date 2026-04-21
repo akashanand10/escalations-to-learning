@@ -1,0 +1,254 @@
+[
+  {
+    "idx": 1,
+    "jira": "BP-7828",
+    "title": "Verify initiating payment from list page succeeds when bill has a valid subsidiary",
+    "status": "created",
+    "id": 350
+  },
+  {
+    "idx": 2,
+    "jira": "BP-7828",
+    "title": "Verify payment list page does not throw error when payment entry has null subsidiary",
+    "status": "created",
+    "id": 351
+  },
+  {
+    "idx": 3,
+    "jira": "BP-7828",
+    "title": "Verify payment initiation works across multiple subsidiaries from the list page",
+    "status": "created",
+    "id": 352
+  },
+  {
+    "idx": 4,
+    "jira": "BP-7781",
+    "title": "Verify Tax Type label uses display_name (not name) after Tax Code is applied",
+    "status": "created",
+    "id": 353
+  },
+  {
+    "idx": 5,
+    "jira": "BP-7781",
+    "title": "Verify Tax Type field shows correct label for tax codes with differing name and display_name",
+    "status": "created",
+    "id": 354
+  },
+  {
+    "idx": 6,
+    "jira": "BP-7781",
+    "title": "Verify bill entry tax fields are unaffected by SuiteTax configurations",
+    "status": "created",
+    "id": 355
+  },
+  {
+    "idx": 7,
+    "jira": "BP-7777",
+    "title": "Verify payment tabs do not overlap with the export window when export panel is opened",
+    "status": "created",
+    "id": 356
+  },
+  {
+    "idx": 8,
+    "jira": "BP-7777",
+    "title": "Verify payment page UI layout is correct at standard and wide screen resolutions",
+    "status": "created",
+    "id": 357
+  },
+  {
+    "idx": 9,
+    "jira": "BP-7777",
+    "title": "Verify export window opens and closes without disrupting tab layout",
+    "status": "created",
+    "id": 358
+  },
+  {
+    "idx": 10,
+    "jira": "BP-7776",
+    "title": "Verify resubmitting a sent-back bill in a closed posting period shows clear error",
+    "status": "created",
+    "id": 359
+  },
+  {
+    "idx": 11,
+    "jira": "BP-7776",
+    "title": "Verify \"Send Back\" button is disabled for bills in locked posting periods",
+    "status": "created",
+    "id": 360
+  },
+  {
+    "idx": 12,
+    "jira": "BP-7776",
+    "title": "Verify reopening posting period allows successful resubmission",
+    "status": "created",
+    "id": 361
+  },
+  {
+    "idx": 13,
+    "jira": "BP-7775",
+    "title": "Verify resubmitting a sent-back bill with amortization enabled shows clear error",
+    "status": "created",
+    "id": 362
+  },
+  {
+    "idx": 14,
+    "jira": "BP-7775",
+    "title": "Verify \"Send Back\" is disabled for bills with amortization that prevents ledger edits",
+    "status": "created",
+    "id": 363
+  },
+  {
+    "idx": 15,
+    "jira": "BP-7775",
+    "title": "Verify bills without amortization can be resubmitted normally after send-back",
+    "status": "created",
+    "id": 364
+  },
+  {
+    "idx": 16,
+    "jira": "BP-7757",
+    "title": "Verify draft bill currency is not overridden by vendor preferred currency on reload",
+    "status": "created",
+    "id": 365
+  },
+  {
+    "idx": 17,
+    "jira": "BP-7757",
+    "title": "Verify saved draft currency persists after re-selecting same vendor on existing draft",
+    "status": "created",
+    "id": 366
+  },
+  {
+    "idx": 18,
+    "jira": "BP-7757",
+    "title": "Verify currency auto-fill still applies correctly when creating a new (non-draft) bill",
+    "status": "created",
+    "id": 367
+  },
+  {
+    "idx": 19,
+    "jira": "BP-7745",
+    "title": "Verify a bill with Airbase prepayment amortization entries (already generated) can be archived without error",
+    "status": "created",
+    "id": 368
+  },
+  {
+    "idx": 20,
+    "jira": "BP-7745",
+    "title": "Verify archival operation does not trigger ledger editability validation for prepayment-linked bills",
+    "status": "created",
+    "id": 369
+  },
+  {
+    "idx": 21,
+    "jira": "BP-7745",
+    "title": "Verify ledger validation changes are scoped to edit operations only (regression gate)",
+    "status": "created",
+    "id": 370
+  },
+  {
+    "idx": 22,
+    "jira": "BP-7742",
+    "title": "Verify \"Send Back\" action is disabled when bill posting period is locked",
+    "status": "created",
+    "id": 371
+  },
+  {
+    "idx": 23,
+    "jira": "BP-7742",
+    "title": "Verify Approve action remains enabled for bills in locked posting periods",
+    "status": "created",
+    "id": 372
+  },
+  {
+    "idx": 24,
+    "jira": "BP-7742",
+    "title": "Verify backend support edit path allows locked-period bills to be resubmitted",
+    "status": "created",
+    "id": 373
+  },
+  {
+    "idx": 25,
+    "jira": "BP-7733",
+    "title": "Verify Edit CTA is hidden in bill listing when posting period is locked",
+    "status": "created",
+    "id": 374
+  },
+  {
+    "idx": 26,
+    "jira": "BP-7733",
+    "title": "Verify Manage Bills permission cannot bypass edit restriction on locked-period bill",
+    "status": "created",
+    "id": 375
+  },
+  {
+    "idx": 27,
+    "jira": "BP-7733",
+    "title": "Verify Airbase Admins receive a clear message attempting to edit locked-period bill",
+    "status": "created",
+    "id": 376
+  },
+  {
+    "idx": 28,
+    "jira": "BP-7733",
+    "title": "Verify bill creator cannot resubmit when posting period is locked",
+    "status": "created",
+    "id": 377
+  },
+  {
+    "idx": 29,
+    "jira": "BP-7722",
+    "title": "Verify a payment run cannot be created with an inactive payer bank account",
+    "status": "created",
+    "id": 378
+  },
+  {
+    "idx": 30,
+    "jira": "BP-7722",
+    "title": "Verify payment approval flow surfaces clear error when payer bank account is inactive",
+    "status": "created",
+    "id": 379
+  },
+  {
+    "idx": 31,
+    "jira": "BP-7722",
+    "title": "Verify bill detail page loads correctly from payment approval view",
+    "status": "created",
+    "id": 380
+  },
+  {
+    "idx": 32,
+    "jira": "BP-7672",
+    "title": "Verify user with Upload Invoices permission only sees invoices they uploaded (not all subsidiary invoices)",
+    "status": "created",
+    "id": 381
+  },
+  {
+    "idx": 33,
+    "jira": "BP-7672",
+    "title": "Verify user with Manage Inbox sees all invoices in accessible subsidiaries",
+    "status": "created",
+    "id": 382
+  },
+  {
+    "idx": 34,
+    "jira": "BP-7672",
+    "title": "Verify user with Spend Access to multiple subsidiaries sees only invoices scoped to their permission level",
+    "status": "created",
+    "id": 383
+  },
+  {
+    "idx": 35,
+    "jira": "BP-7672",
+    "title": "Verify invoice detail page is accessible for invoices where user is uploader/watcher",
+    "status": "created",
+    "id": 384
+  },
+  {
+    "idx": 36,
+    "jira": "BP-7672",
+    "title": "Verify invoice detail page is not accessible without upload/watcher relationship and no Manage Inbox",
+    "status": "created",
+    "id": 385
+  }
+]

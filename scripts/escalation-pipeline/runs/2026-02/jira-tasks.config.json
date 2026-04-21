@@ -1,0 +1,17 @@
+{
+  "project": "BP",
+  "issuetype": "Task",
+  "parent": "BP-7479",
+  "label": "bp-velocity",
+  "qase_project": "ABP",
+  "assignees": [
+    {
+      "name": "Akash Anand",
+      "account_id": "712020:a9dad8ba-ae46-4ced-9864-c735f2724d7c"
+    },
+    {
+      "name": "Sachin Mannurkar",
+      "account_id": "712020:664c17db-581e-43cb-8e60-97de179c89b7"
+    }
+  ]
+}

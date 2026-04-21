@@ -1,0 +1,290 @@
+[
+  {
+    "qase_id": "ABP-350",
+    "jira_src": "BP-7828",
+    "status": "created",
+    "issue_key": "BP-8162",
+    "assignee_id": "712020:a9dad8ba-ae46-4ced-9864-c735f2724d7c",
+    "assignee_name": "Akash Anand"
+  },
+  {
+    "qase_id": "ABP-351",
+    "jira_src": "BP-7828",
+    "status": "created",
+    "issue_key": "BP-8163",
+    "assignee_id": "712020:664c17db-581e-43cb-8e60-97de179c89b7",
+    "assignee_name": "Sachin Mannurkar"
+  },
+  {
+    "qase_id": "ABP-352",
+    "jira_src": "BP-7828",
+    "status": "created",
+    "issue_key": "BP-8164",
+    "assignee_id": "712020:a9dad8ba-ae46-4ced-9864-c735f2724d7c",
+    "assignee_name": "Akash Anand"
+  },
+  {
+    "qase_id": "ABP-353",
+    "jira_src": "BP-7781",
+    "status": "created",
+    "issue_key": "BP-8165",
+    "assignee_id": "712020:664c17db-581e-43cb-8e60-97de179c89b7",
+    "assignee_name": "Sachin Mannurkar"
+  },
+  {
+    "qase_id": "ABP-354",
+    "jira_src": "BP-7781",
+    "status": "created",
+    "issue_key": "BP-8166",
+    "assignee_id": "712020:a9dad8ba-ae46-4ced-9864-c735f2724d7c",
+    "assignee_name": "Akash Anand"
+  },
+  {
+    "qase_id": "ABP-355",
+    "jira_src": "BP-7781",
+    "status": "created",
+    "issue_key": "BP-8167",
+    "assignee_id": "712020:664c17db-581e-43cb-8e60-97de179c89b7",
+    "assignee_name": "Sachin Mannurkar"
+  },
+  {
+    "qase_id": "ABP-356",
+    "jira_src": "BP-7777",
+    "status": "created",
+    "issue_key": "BP-8168",
+    "assignee_id": "712020:a9dad8ba-ae46-4ced-9864-c735f2724d7c",
+    "assignee_name": "Akash Anand"
+  },
+  {
+    "qase_id": "ABP-357",
+    "jira_src": "BP-7777",
+    "status": "created",
+    "issue_key": "BP-8169",
+    "assignee_id": "712020:664c17db-581e-43cb-8e60-97de179c89b7",
+    "assignee_name": "Sachin Mannurkar"
+  },
+  {
+    "qase_id": "ABP-358",
+    "jira_src": "BP-7777",
+    "status": "created",
+    "issue_key": "BP-8170",
+    "assignee_id": "712020:a9dad8ba-ae46-4ced-9864-c735f2724d7c",
+    "assignee_name": "Akash Anand"
+  },
+  {
+    "qase_id": "ABP-359",
+    "jira_src": "BP-7776",
+    "status": "created",
+    "issue_key": "BP-8171",
+    "assignee_id": "712020:664c17db-581e-43cb-8e60-97de179c89b7",
+    "assignee_name": "Sachin Mannurkar"
+  },
+  {
+    "qase_id": "ABP-360",
+    "jira_src": "BP-7776",
+    "status": "created",
+    "issue_key": "BP-8172",
+    "assignee_id": "712020:a9dad8ba-ae46-4ced-9864-c735f2724d7c",
+    "assignee_name": "Akash Anand"
+  },
+  {
+    "qase_id": "ABP-361",
+    "jira_src": "BP-7776",
+    "status": "created",
+    "issue_key": "BP-8173",
+    "assignee_id": "712020:664c17db-581e-43cb-8e60-97de179c89b7",
+    "assignee_name": "Sachin Mannurkar"
+  },
+  {
+    "qase_id": "ABP-362",
+    "jira_src": "BP-7775",
+    "status": "created",
+    "issue_key": "BP-8174",
+    "assignee_id": "712020:a9dad8ba-ae46-4ced-9864-c735f2724d7c",
+    "assignee_name": "Akash Anand"
+  },
+  {
+    "qase_id": "ABP-363",
+    "jira_src": "BP-7775",
+    "status": "created",
+    "issue_key": "BP-8175",
+    "assignee_id": "712020:664c17db-581e-43cb-8e60-97de179c89b7",
+    "assignee_name": "Sachin Mannurkar"
+  },
+  {
+    "qase_id": "ABP-364",
+    "jira_src": "BP-7775",
+    "status": "created",
+    "issue_key": "BP-8176",
+    "assignee_id": "712020:a9dad8ba-ae46-4ced-9864-c735f2724d7c",
+    "assignee_name": "Akash Anand"
+  },
+  {
+    "qase_id": "ABP-365",
+    "jira_src": "BP-7757",
+    "status": "created",
+    "issue_key": "BP-8177",
+    "assignee_id": "712020:664c17db-581e-43cb-8e60-97de179c89b7",
+    "assignee_name": "Sachin Mannurkar"
+  },
+  {
+    "qase_id": "ABP-366",
+    "jira_src": "BP-7757",
+    "status": "created",
+    "issue_key": "BP-8178",
+    "assignee_id": "712020:a9dad8ba-ae46-4ced-9864-c735f2724d7c",
+    "assignee_name": "Akash Anand"
+  },
+  {
+    "qase_id": "ABP-367",
+    "jira_src": "BP-7757",
+    "status": "created",
+    "issue_key": "BP-8179",
+    "assignee_id": "712020:664c17db-581e-43cb-8e60-97de179c89b7",
+    "assignee_name": "Sachin Mannurkar"
+  },
+  {
+    "qase_id": "ABP-368",
+    "jira_src": "BP-7745",
+    "status": "created",
+    "issue_key": "BP-8180",
+    "assignee_id": "712020:a9dad8ba-ae46-4ced-9864-c735f2724d7c",
+    "assignee_name": "Akash Anand"
+  },
+  {
+    "qase_id": "ABP-369",
+    "jira_src": "BP-7745",
+    "status": "created",
+    "issue_key": "BP-8181",
+    "assignee_id": "712020:664c17db-581e-43cb-8e60-97de179c89b7",
+    "assignee_name": "Sachin Mannurkar"
+  },
+  {
+    "qase_id": "ABP-370",
+    "jira_src": "BP-7745",
+    "status": "created",
+    "issue_key": "BP-8182",
+    "assignee_id": "712020:a9dad8ba-ae46-4ced-9864-c735f2724d7c",
+    "assignee_name": "Akash Anand"
+  },
+  {
+    "qase_id": "ABP-371",
+    "jira_src": "BP-7742",
+    "status": "created",
+    "issue_key": "BP-8183",
+    "assignee_id": "712020:664c17db-581e-43cb-8e60-97de179c89b7",
+    "assignee_name": "Sachin Mannurkar"
+  },
+  {
+    "qase_id": "ABP-372",
+    "jira_src": "BP-7742",
+    "status": "created",
+    "issue_key": "BP-8184",
+    "assignee_id": "712020:a9dad8ba-ae46-4ced-9864-c735f2724d7c",
+    "assignee_name": "Akash Anand"
+  },
+  {
+    "qase_id": "ABP-373",
+    "jira_src": "BP-7742",
+    "status": "created",
+    "issue_key": "BP-8185",
+    "assignee_id": "712020:664c17db-581e-43cb-8e60-97de179c89b7",
+    "assignee_name": "Sachin Mannurkar"
+  },
+  {
+    "qase_id": "ABP-374",
+    "jira_src": "BP-7733",
+    "status": "created",
+    "issue_key": "BP-8186",
+    "assignee_id": "712020:a9dad8ba-ae46-4ced-9864-c735f2724d7c",
+    "assignee_name": "Akash Anand"
+  },
+  {
+    "qase_id": "ABP-375",
+    "jira_src": "BP-7733",
+    "status": "created",
+    "issue_key": "BP-8187",
+    "assignee_id": "712020:664c17db-581e-43cb-8e60-97de179c89b7",
+    "assignee_name": "Sachin Mannurkar"
+  },
+  {
+    "qase_id": "ABP-376",
+    "jira_src": "BP-7733",
+    "status": "created",
+    "issue_key": "BP-8188",
+    "assignee_id": "712020:a9dad8ba-ae46-4ced-9864-c735f2724d7c",
+    "assignee_name": "Akash Anand"
+  },
+  {
+    "qase_id": "ABP-377",
+    "jira_src": "BP-7733",
+    "status": "created",
+    "issue_key": "BP-8189",
+    "assignee_id": "712020:664c17db-581e-43cb-8e60-97de179c89b7",
+    "assignee_name": "Sachin Mannurkar"
+  },
+  {
+    "qase_id": "ABP-378",
+    "jira_src": "BP-7722",
+    "status": "created",
+    "issue_key": "BP-8190",
+    "assignee_id": "712020:a9dad8ba-ae46-4ced-9864-c735f2724d7c",
+    "assignee_name": "Akash Anand"
+  },
+  {
+    "qase_id": "ABP-379",
+    "jira_src": "BP-7722",
+    "status": "created",
+    "issue_key": "BP-8191",
+    "assignee_id": "712020:664c17db-581e-43cb-8e60-97de179c89b7",
+    "assignee_name": "Sachin Mannurkar"
+  },
+  {
+    "qase_id": "ABP-380",
+    "jira_src": "BP-7722",
+    "status": "created",
+    "issue_key": "BP-8192",
+    "assignee_id": "712020:a9dad8ba-ae46-4ced-9864-c735f2724d7c",
+    "assignee_name": "Akash Anand"
+  },
+  {
+    "qase_id": "ABP-381",
+    "jira_src": "BP-7672",
+    "status": "created",
+    "issue_key": "BP-8193",
+    "assignee_id": "712020:664c17db-581e-43cb-8e60-97de179c89b7",
+    "assignee_name": "Sachin Mannurkar"
+  },
+  {
+    "qase_id": "ABP-382",
+    "jira_src": "BP-7672",
+    "status": "created",
+    "issue_key": "BP-8194",
+    "assignee_id": "712020:a9dad8ba-ae46-4ced-9864-c735f2724d7c",
+    "assignee_name": "Akash Anand"
+  },
+  {
+    "qase_id": "ABP-383",
+    "jira_src": "BP-7672",
+    "status": "created",
+    "issue_key": "BP-8195",
+    "assignee_id": "712020:664c17db-581e-43cb-8e60-97de179c89b7",
+    "assignee_name": "Sachin Mannurkar"
+  },
+  {
+    "qase_id": "ABP-384",
+    "jira_src": "BP-7672",
+    "status": "created",
+    "issue_key": "BP-8196",
+    "assignee_id": "712020:a9dad8ba-ae46-4ced-9864-c735f2724d7c",
+    "assignee_name": "Akash Anand"
+  },
+  {
+    "qase_id": "ABP-385",
+    "jira_src": "BP-7672",
+    "status": "created",
+    "issue_key": "BP-8197",
+    "assignee_id": "712020:664c17db-581e-43cb-8e60-97de179c89b7",
+    "assignee_name": "Sachin Mannurkar"
+  }
+]

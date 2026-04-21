@@ -1,0 +1,193 @@
+{
+  "project": "ABP",
+  "existing_cases_json": "/tmp/abp_cases.json",
+  "defaults": {
+    "severity": 2,
+    "priority": 1,
+    "type": 3,
+    "custom_field_id": 142,
+    "custom_field_value": "AI escalation context"
+  },
+  "cases": [
+    {
+      "jira": "BP-7828",
+      "suite_id": 35,
+      "title": "Verify initiating payment from list page succeeds when bill has a valid subsidiary"
+    },
+    {
+      "jira": "BP-7828",
+      "suite_id": 35,
+      "title": "Verify payment list page does not throw error when payment entry has null subsidiary"
+    },
+    {
+      "jira": "BP-7828",
+      "suite_id": 35,
+      "title": "Verify payment initiation works across multiple subsidiaries from the list page"
+    },
+    {
+      "jira": "BP-7781",
+      "suite_id": 6,
+      "title": "Verify Tax Type label uses display_name (not name) after Tax Code is applied"
+    },
+    {
+      "jira": "BP-7781",
+      "suite_id": 6,
+      "title": "Verify Tax Type field shows correct label for tax codes with differing name and display_name"
+    },
+    {
+      "jira": "BP-7781",
+      "suite_id": 6,
+      "title": "Verify bill entry tax fields are unaffected by SuiteTax configurations"
+    },
+    {
+      "jira": "BP-7777",
+      "suite_id": 27,
+      "title": "Verify payment tabs do not overlap with the export window when export panel is opened"
+    },
+    {
+      "jira": "BP-7777",
+      "suite_id": 27,
+      "title": "Verify payment page UI layout is correct at standard and wide screen resolutions"
+    },
+    {
+      "jira": "BP-7777",
+      "suite_id": 27,
+      "title": "Verify export window opens and closes without disrupting tab layout"
+    },
+    {
+      "jira": "BP-7776",
+      "suite_id": 17,
+      "title": "Verify resubmitting a sent-back bill in a closed posting period shows clear error"
+    },
+    {
+      "jira": "BP-7776",
+      "suite_id": 17,
+      "title": "Verify \"Send Back\" button is disabled for bills in locked posting periods"
+    },
+    {
+      "jira": "BP-7776",
+      "suite_id": 17,
+      "title": "Verify reopening posting period allows successful resubmission"
+    },
+    {
+      "jira": "BP-7775",
+      "suite_id": 17,
+      "title": "Verify resubmitting a sent-back bill with amortization enabled shows clear error"
+    },
+    {
+      "jira": "BP-7775",
+      "suite_id": 17,
+      "title": "Verify \"Send Back\" is disabled for bills with amortization that prevents ledger edits"
+    },
+    {
+      "jira": "BP-7775",
+      "suite_id": 17,
+      "title": "Verify bills without amortization can be resubmitted normally after send-back"
+    },
+    {
+      "jira": "BP-7757",
+      "suite_id": 21,
+      "title": "Verify draft bill currency is not overridden by vendor preferred currency on reload"
+    },
+    {
+      "jira": "BP-7757",
+      "suite_id": 21,
+      "title": "Verify saved draft currency persists after re-selecting same vendor on existing draft"
+    },
+    {
+      "jira": "BP-7757",
+      "suite_id": 20,
+      "title": "Verify currency auto-fill still applies correctly when creating a new (non-draft) bill"
+    },
+    {
+      "jira": "BP-7745",
+      "suite_id": 15,
+      "title": "Verify a bill with Airbase prepayment amortization entries (already generated) can be archived without error"
+    },
+    {
+      "jira": "BP-7745",
+      "suite_id": 15,
+      "title": "Verify archival operation does not trigger ledger editability validation for prepayment-linked bills"
+    },
+    {
+      "jira": "BP-7745",
+      "suite_id": 15,
+      "title": "Verify ledger validation changes are scoped to edit operations only (regression gate)"
+    },
+    {
+      "jira": "BP-7742",
+      "suite_id": 17,
+      "title": "Verify \"Send Back\" action is disabled when bill posting period is locked"
+    },
+    {
+      "jira": "BP-7742",
+      "suite_id": 17,
+      "title": "Verify Approve action remains enabled for bills in locked posting periods"
+    },
+    {
+      "jira": "BP-7742",
+      "suite_id": 17,
+      "title": "Verify backend support edit path allows locked-period bills to be resubmitted"
+    },
+    {
+      "jira": "BP-7733",
+      "suite_id": 17,
+      "title": "Verify Edit CTA is hidden in bill listing when posting period is locked"
+    },
+    {
+      "jira": "BP-7733",
+      "suite_id": 17,
+      "title": "Verify Manage Bills permission cannot bypass edit restriction on locked-period bill"
+    },
+    {
+      "jira": "BP-7733",
+      "suite_id": 17,
+      "title": "Verify Airbase Admins receive a clear message attempting to edit locked-period bill"
+    },
+    {
+      "jira": "BP-7733",
+      "suite_id": 17,
+      "title": "Verify bill creator cannot resubmit when posting period is locked"
+    },
+    {
+      "jira": "BP-7722",
+      "suite_id": 28,
+      "title": "Verify a payment run cannot be created with an inactive payer bank account"
+    },
+    {
+      "jira": "BP-7722",
+      "suite_id": 28,
+      "title": "Verify payment approval flow surfaces clear error when payer bank account is inactive"
+    },
+    {
+      "jira": "BP-7722",
+      "suite_id": 28,
+      "title": "Verify bill detail page loads correctly from payment approval view"
+    },
+    {
+      "jira": "BP-7672",
+      "suite_id": 41,
+      "title": "Verify user with Upload Invoices permission only sees invoices they uploaded (not all subsidiary invoices)"
+    },
+    {
+      "jira": "BP-7672",
+      "suite_id": 41,
+      "title": "Verify user with Manage Inbox sees all invoices in accessible subsidiaries"
+    },
+    {
+      "jira": "BP-7672",
+      "suite_id": 41,
+      "title": "Verify user with Spend Access to multiple subsidiaries sees only invoices scoped to their permission level"
+    },
+    {
+      "jira": "BP-7672",
+      "suite_id": 41,
+      "title": "Verify invoice detail page is accessible for invoices where user is uploader/watcher"
+    },
+    {
+      "jira": "BP-7672",
+      "suite_id": 41,
+      "title": "Verify invoice detail page is not accessible without upload/watcher relationship and no Manage Inbox"
+    }
+  ]
+}
